@@ -29,7 +29,6 @@
             $months[]= date('F', mktime(0,0,0,$i,0,0));
             $i++;
            }
-           
             return $this->render("/calendar/index.html.twig",[
                 'months' => $months,
                 'events' => $events
