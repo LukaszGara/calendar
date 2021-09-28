@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %} 
+
+{% block body %}
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Hour</th>
+            <th scope="col">Event</th>
+            <th scope="col"></th>
+            <tbody>
+            {% for event in events %}
+            <tr class="table-light">
+                <th scope="row">{{ event.hour }}</th>
+                <td>{{ event.event }}</td>
+                <td><a href="/{{ month }}/{{ day }}/{{ event.event }}" type="button" class="btn btn-danger">DELETE</a></td>
+            </tr>
+            {% endfor %}
+         
+        </tbody>
+      </table>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+
+</div>
+
+
+{% endblock %}

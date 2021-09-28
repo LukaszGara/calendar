@@ -1,0 +1,48 @@
+{% extends "base.html.twig" %} 
+
+{% block body %}
+<div class="container" style="margin-top: 4%; background-color:rgb(201, 201, 201)">
+    <div class="container" style="background-color: rgb(27, 27, 27); width:600rem; height:3.5rem; margin-left:-1%; padding:0.5%">
+        <h1 style="color: white; margin-left:2%"> Calendar </h1>
+    </div>  
+    
+    <h1 style="font-size: 10vw; margin-left:35%; margin-top: 5%;"> 2021 </h1>
+
+    <h4 style="margin-left:40%"> to be done today </h4>
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Hour</th>
+            <th scope="col">Event</th>
+            <th scope="col"></th>
+            <tbody>
+            {% for event in events %}
+            <tr class="table-light">
+                <th scope="row">{{ event.hour }}</th>
+                <td>{{ event.event }}</td>
+                <td><a href="/{{ event.month }}/{{ event.day }}/{{ event.event }}" type="button" class="btn btn-danger">DELETE</a></td>
+            </tr>
+            {% endfor %}
+         
+        </tbody>
+      </table>
+    
+    <p style="font-weight:bold; margin-left:16%; margin-top:3%">Only thing you need to do, to plan your day  is selecting month and day, then you can schedule whatever you want! </p>
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown" style="margin-left:44%; margin-top:3%; padding-bottom: 5%">
+        <button type="button" class="btn btn-primary">Select month</button>
+        <div class="btn-group" role="group">
+          <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+          <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+            {% for key,value in months %}
+                    
+            <a class="dropdown-item" href="/{{ key }}"> {{ value }} </a>
+                            
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+</div>
+
+
+{% endblock %}
