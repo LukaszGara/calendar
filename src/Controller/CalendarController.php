@@ -16,6 +16,8 @@
          * @Route("/", name="home")
          * @Method({"GET"})
          */
+        /*This function find events on current day and make an array with months names. 
+        It also render main page of calendar*/ 
         public function index() {
             
             $day = date('j');
@@ -35,29 +37,28 @@
             ]);
         }
         /**
-         * @Route("/{id}")
+         * @Route("/{id}", name="month")
          * @Method({"GET"})
          */
-
+        /*this function create an array with number of days in selected month, then count events 
+        for each day and finds the name of every day. It render a calendar page of selected month*/
          public function calendar($id) {
             
             $i = 2;
              while ($i < 14) {
-                $months[]= date('F', mktime(0,0,0,$i,0,0));
+                $months[]= date('F', mktime(0,0,0,$i,0,2021));
                 $i++;
                 }
-
             $id += 1;
             $days = cal_days_in_month(CAL_GREGORIAN, $id, 2021);
-        
             $id += 1;
-            $month_name = date('F', mktime(0,0,0,$id,0,0));
-
+            $month_name = date('F', mktime(0,0,0,$id,0,2021));
+            $id -= 1;
             $d = 1;
             while ($d <= $days){
                 $count_events[] = $this->getDoctrine()->getRepository(ThisYear::class)
                 ->countEvents($month_name, $d);
-                $day[] = date('D', mktime(0,0,0,$id,$d,0));
+                $day[] = date('D', mktime(0,0,0,$id,$d,2021));
                 $d++;
             }
 
@@ -72,10 +73,10 @@
 
          }
          /**
-         * @Route("/{month}/{id}", name = "list" )
+         * @Route("/{month}/{id}", name="list")
          * @Method({"GET", "POST"})
          */
-
+        /*This function find events for selected day and create form to add new event. */
          public function input($month, $id, Request $request){
 
             $events = $this->getDoctrine()->getRepository(ThisYear::class)
@@ -118,9 +119,10 @@
             )); 
          }
          /**
-         * @Route("/{month}/{id}/{event}")
+         * @Route("/{month}/{id}/{event}", name="delete")
          * @Method({"DELETE"})
          */
+        //this function delete selected event
         public function delete($month, $id, $event){
             $delete = $this->getDoctrine()->getRepository(ThisYear::class)->deleteEvents($month, $id, $event);
 

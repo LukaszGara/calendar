@@ -44,7 +44,7 @@ class ThisYearRepository extends ServiceEntityRepository
         $query = $entityManager->createQuery(
             'SELECT e
             FROM App\Entity\ThisYear e
-            WHERE e.month = :month AND e.day = :day'
+            WHERE e.month = :month AND e.day = :day ORDER BY e.hour DESC'
             
         )->setParameter('month', $month)
          ->setParameter('day', $day);
